@@ -1,8 +1,8 @@
 import fetch from 'node-fetch'
 
-exports.handler = async function () {
-  const POKE_API = 'https://pokeapi.co/api/v2/pokedex/kanto'
-
+exports.handler = async function (event, context) {
+  const eventbody = JSON.parse(event.body)
+  const POKE_API = 'https://pokeapi.co/api/v2/pokedex/' + eventbody.region
 
   response = await fetch(POKE_API)
 
@@ -10,6 +10,6 @@ exports.handler = async function () {
 
   return {
     statusCode: 200,
-    body: JSON.stringify(data)
+    body: JSON.stringify(data.pokemon_entries)
   }
 }
